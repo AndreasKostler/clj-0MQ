@@ -24,16 +24,6 @@
           (let [query (zsocket/recv socket)]
             (handler socket query)))))))
 
-(defn start-server2 []
-  (zmq/with-context [ctx 1 1]
-    (zmq/with-socket [socket ctx zsocket/REP]
-      (on-thread
-       #(do
-          (zsocket/bind socket "tcp://lo:5555")
-          (while true
-            (let [query (zsocket/recv socket)]
-              (handler socket query))))))))
-
 (defn send-to-server [query]
   (zmq/with-context [ctx 1 1]
     (zmq/with-socket [socket ctx zsocket/REQ]
