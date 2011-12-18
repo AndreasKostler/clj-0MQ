@@ -6,8 +6,8 @@ Thin wrapper for jzmq, the java client for [0MQ](http://www.zeromq.org/).
 
 clojure-zmq has the following core dependencies:
 
- * [zmq](http://github.com/sustrik/zeromq2)
- * [jzmq](http://github.com/sustrik/jzmq) 
+ * [zmq](http://github.com/zeromq)
+ * [jzmq](http://github.com/zeromq/jzmq) 
  * clojure
  
 The native libraries for `zmq` and `jzmq` must be compiled and installed accordingly. You can install `zmq.jar` to your local Maven repository like so:
