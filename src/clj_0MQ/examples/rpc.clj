@@ -15,7 +15,7 @@
     (.start)))
 
 (defn start-server []
-  (let [ctx (zcore/make-context 1 1)
+  (let [ctx (zcore/make-context 1 false)
         socket (zcore/make-socket ctx zsocket/REP)]
     (on-thread
      #(do
@@ -25,8 +25,8 @@
             (handler socket query)))))))
 
 (defn send-to-server [query]
-  (zcore/with-context [ctx 1 1]
-    (zcore/with-socket [socket ctx zsocket/REQ]
+  (zcore/with-context [cxt 1]
+    (zcore/with-socket [socket cxt zsocket/REQ]
       (zsocket/connect socket "tcp://localhost:5555")
       (zsocket/send- socket (string-to-bytes query))
       (println (str "Received response: " (bytes-to-string (zsocket/recv socket)))))))

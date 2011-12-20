@@ -13,9 +13,9 @@
     (.start)))
 
 (defn make-publisher []
-  (let [ctx (zcore/make-context 1 1)
+  (let [ctx (zcore/make-context 1 false)
         socket (zcore/make-socket ctx zsocket/PUB)]
-    (zsocket/bind socket "tcp://lo:5555")
+    (zsocket/bind socket "tcp://lo:5551")
     socket))
 
 (defn publish [publisher msg]
@@ -25,10 +25,10 @@
   ; Create subscriber on separate thread so we can interact with REPL when it
   ; blocks.
   (on-thread 
-   #(zcore/with-context [ctx 1 1]
+   #(zcore/with-context [ctx 1]
       (zcore/with-socket [socket ctx zsocket/SUB]
         (zsocket/subscribe socket (string-to-bytes ""))
-        (zsocket/connect socket "tcp://localhost:5555")
+        (zsocket/connect socket "tcp://localhost:5551")
         (while true
           (let [msg (zsocket/recv socket)]
             (handler socket id msg)))))))
